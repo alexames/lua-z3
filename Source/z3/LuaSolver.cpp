@@ -1,4 +1,5 @@
 #include "z3/LuaSolver.hpp"
+#include <sstream>
 
 static z3::solver* checkSolver(lua_State* L, int index) {
   return luaW_check<z3::solver>(L, index);
@@ -88,7 +89,9 @@ static int Solver_reason_unknown(lua_State* L) {
 static int Solver_statistics(lua_State* L) {
   auto* solver = checkSolver(L, 1);
   z3::stats stats = solver->statistics();
-  lua_pushstring(L, stats.to_string().c_str());
+  std::ostringstream oss;
+  oss << stats;
+  lua_pushstring(L, oss.str().c_str());
   return 1;
 }
 

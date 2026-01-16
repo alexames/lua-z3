@@ -124,6 +124,23 @@ static luaL_Reg z3Functions[] = {
     {NULL, NULL}
 };
 
+// Context constructor wrapper
+static int z3_Context(lua_State* L) {
+  auto* ctx = new z3::context();
+  luaW_push<z3::context>(L, ctx);
+  luaW_hold<z3::context>(L, ctx);
+  return 1;
+}
+
+// Solver constructor wrapper
+static int z3_Solver(lua_State* L) {
+  auto* ctx = luaW_check<z3::context>(L, 1);
+  auto* solver = new z3::solver(*ctx);
+  luaW_push<z3::solver>(L, solver);
+  luaW_hold<z3::solver>(L, solver);
+  return 1;
+}
+
 extern "C" {
 
 #ifdef _WIN32
@@ -141,11 +158,11 @@ int luaopen_z3(lua_State* L) {
   lua_newtable(L);
 
   // Add the Context constructor
-  luaW_getregistry<z3::context>(L, "z3.context");
+  lua_pushcfunction(L, z3_Context);
   lua_setfield(L, -2, "Context");
 
   // Add the Solver constructor
-  luaW_getregistry<z3::solver>(L, "z3.solver");
+  lua_pushcfunction(L, z3_Solver);
   lua_setfield(L, -2, "Solver");
 
   // Add module-level functions

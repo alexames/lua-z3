@@ -9,17 +9,16 @@ cpp_library(
     "LuaModel.cpp"
     "LuaZ3.cpp"
   DEPENDENCIES
-    ${LUA_LIBRARIES}
-    luawrapper::luawrapper
-    z3::libz3
+    PUBLIC
+      lua
+      luawrapper::luawrapper
+      z3::libz3
 )
 
 target_include_directories(lua_z3
   PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/Include>
     $<INSTALL_INTERFACE:include>
-  PRIVATE
-    ${LUA_INCLUDE_DIR}
 )
 
 # Set output name to just "z3" for Lua require("z3") to work

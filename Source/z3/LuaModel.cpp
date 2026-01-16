@@ -32,13 +32,6 @@ static int Model_num_funcs(lua_State* L) {
   return 1;
 }
 
-// Get the number of sorts in the model
-static int Model_num_sorts(lua_State* L) {
-  auto* model = checkModel(L, 1);
-  lua_pushinteger(L, model->num_sorts());
-  return 1;
-}
-
 // Get a constant declaration by index
 static int Model_get_const_decl(lua_State* L) {
   auto* model = checkModel(L, 1);
@@ -131,7 +124,6 @@ static luaL_Reg modelMetatable[] = {
     {"get_value", Model_get_value},
     {"num_consts", Model_num_consts},
     {"num_funcs", Model_num_funcs},
-    {"num_sorts", Model_num_sorts},
     {"get_const_decl", Model_get_const_decl},
     {"consts", Model_consts},
     {"__tostring", Model_tostring},

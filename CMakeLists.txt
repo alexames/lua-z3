@@ -18,7 +18,7 @@ find_package(Targets CONFIG REQUIRED)
 include(Targets)
 
 # Find dependencies
-find_package(Lua REQUIRED)
+find_package(unofficial-lua CONFIG REQUIRED)
 find_package(luawrapper REQUIRED)
 find_package(Z3 CONFIG REQUIRED)
 

@@ -4,6 +4,7 @@
   "description": "Lua bindings for the Z3 theorem prover",
   "homepage": "https://github.com/alexames/lua-z3",
   "dependencies": [
+    "fmt",
     "lua",
     "luawrapper",
     "targets",
