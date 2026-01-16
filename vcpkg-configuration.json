@@ -1,0 +1,13 @@
+{
+  "registries": [
+    {
+      "kind": "git",
+      "baseline": "ff6bf8c2b0e26db3cc793a7b37f094e4455c4b9d",
+      "repository": "https://github.com/alexames/vcpkg-registry",
+      "packages": [
+        "luawrapper",
+        "targets"
+      ]
+    }
+  ]
+}

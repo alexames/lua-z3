@@ -1,0 +1,13 @@
+{
+  "name": "lua-z3",
+  "version-string": "0.1.0",
+  "description": "Lua bindings for the Z3 theorem prover",
+  "homepage": "https://github.com/alexames/lua-z3",
+  "dependencies": [
+    "lua",
+    "luawrapper",
+    "targets",
+    "z3"
+  ],
+  "builtin-baseline": "834977918592e4f5d5ec5fe48ba338c608faf9f9"
+}

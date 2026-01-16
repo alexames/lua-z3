@@ -1,0 +1,38 @@
+# Build directories
+Build/
+build/
+out/
+
+# CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.cmake
+!cmake/*.cmake
+
+# vcpkg
+vcpkg_installed/
+
+# IDE
+.vs/
+.vscode/
+*.vcxproj*
+*.sln
+
+# Compiled objects
+*.o
+*.obj
+*.dll
+*.so
+*.dylib
+*.lib
+*.a
+*.exe
+
+# Lua
+*.luac
+
+# OS
+.DS_Store
+Thumbs.db
