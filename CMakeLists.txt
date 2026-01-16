@@ -31,7 +31,7 @@ if(LUA_Z3_ENABLE_INSTALL)
   include(GNUInstallDirs)
 
   # Install the Lua module
-  install(TARGETS z3
+  install(TARGETS lua_z3
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/lua/5.4
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
   )
