@@ -1,11 +1,7 @@
 -- lua-z3 unit tests
 -- Usage: lua tests/test_z3.lua
 
--- Add paths for the unit library and the z3 module
-package.path = package.path .. ";C:/Users/Alexa/Programming/unit/?.lua"
-package.cpath = package.cpath .. ";C:/Users/Alexa/Programming/lua-z3/Build/Source/z3/Release/?.dll"
-
-local unit = require 'unit'
+local unit = require 'llx.unit'
 local z3 = require 'z3'
 
 _ENV = unit.create_test_env(_ENV)

@@ -18,7 +18,7 @@ find_package(Targets CONFIG REQUIRED)
 include(Targets)
 
 # Find dependencies
-find_package(unofficial-lua CONFIG REQUIRED)
+find_package(lua55 CONFIG REQUIRED)
 find_package(luawrapper REQUIRED)
 find_package(Z3 CONFIG REQUIRED)
 
@@ -32,7 +32,7 @@ if(LUA_Z3_ENABLE_INSTALL)
 
   # Install the Lua module
   install(TARGETS lua_z3
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/lua/5.4
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/lua/5.5
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
   )
 endif()
