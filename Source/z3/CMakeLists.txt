@@ -10,7 +10,7 @@ cpp_library(
     "LuaZ3.cpp"
   DEPENDENCIES
     PUBLIC
-      lua55::lua55
+      lua${LUA_VERSION}::lua${LUA_VERSION}
       luawrapper::luawrapper
       z3::libz3
 )

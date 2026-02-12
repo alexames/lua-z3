@@ -5,9 +5,13 @@
       "baseline": "7073c87f86e93d8dc66ef111e0a8c496bc7c5064",
       "repository": "https://github.com/alexames/vcpkg-registry",
       "packages": [
+        "lua51",
+        "lua52",
+        "lua53",
+        "lua54",
+        "lua55",
         "luawrapper",
-        "targets",
-        "lua55"
+        "targets"
       ]
     }
   ]

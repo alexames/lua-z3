@@ -9,7 +9,7 @@ source = {
 description = {
    summary = "Lua bindings for the Z3 theorem prover",
    detailed = [[
-      lua-z3 provides Lua 5.4 bindings for the Z3 theorem prover,
+      lua-z3 provides Lua bindings for the Z3 theorem prover,
       allowing you to use Z3's powerful SMT solving capabilities
       directly from Lua code.
    ]],
@@ -18,7 +18,7 @@ description = {
 }
 
 dependencies = {
-   "lua >= 5.4"
+   "lua >= 5.1"
 }
 
 external_dependencies = {

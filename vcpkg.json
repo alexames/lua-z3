@@ -5,10 +5,32 @@
   "homepage": "https://github.com/alexames/lua-z3",
   "dependencies": [
     "fmt",
-    "lua55",
     "luawrapper",
     "targets",
     "z3"
   ],
+  "default-features": [],
+  "features": {
+    "lua51": {
+      "description": "Build against Lua 5.1",
+      "dependencies": ["lua51"]
+    },
+    "lua52": {
+      "description": "Build against Lua 5.2",
+      "dependencies": ["lua52"]
+    },
+    "lua53": {
+      "description": "Build against Lua 5.3",
+      "dependencies": ["lua53"]
+    },
+    "lua54": {
+      "description": "Build against Lua 5.4",
+      "dependencies": ["lua54"]
+    },
+    "lua55": {
+      "description": "Build against Lua 5.5",
+      "dependencies": ["lua55"]
+    }
+  },
   "builtin-baseline": "75a2e14262fc23c1f03bac18e135c4866dd25b51"
 }
