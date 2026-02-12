@@ -32,6 +32,7 @@ build = {
    type = "cmake",
    variables = {
       CMAKE_INSTALL_PREFIX = "$(PREFIX)",
+      LUA_VERSION = "$(LUA_VERSION)",
       LUA_INCLUDE_DIR = "$(LUA_INCDIR)",
       LUA_LIBRARIES = "$(LUA_LIBDIR)/$(LUALIB)",
       Z3_INCLUDE_DIR = "$(Z3_INCDIR)",
