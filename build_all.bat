@@ -52,12 +52,13 @@ for %%V in (%VERSIONS%) do (
         exit /b 1
     )
 
-    REM Copy the output DLL to a predictable location
+    REM Copy the output DLLs to a predictable location
     if not exist "%SOURCE_DIR%dist\lua%%V" mkdir "%SOURCE_DIR%dist\lua%%V"
     copy /Y "!BUILD_DIR!\Source\z3\Release\z3.dll" "%SOURCE_DIR%dist\lua%%V\z3.dll" >nul
+    copy /Y "!BUILD_DIR!\Source\z3\Release\libz3.dll" "%SOURCE_DIR%dist\lua%%V\libz3.dll" >nul
 
     echo.
-    echo Successfully built dist\lua%%V\z3.dll
+    echo Successfully built dist\lua%%V\z3.dll and libz3.dll
 )
 
 echo.
@@ -66,7 +67,7 @@ echo All builds complete. DLLs are in the dist\ directory:
 echo ================================================================
 for %%V in (%VERSIONS%) do (
     if exist "%SOURCE_DIR%dist\lua%%V\z3.dll" (
-        echo   dist\lua%%V\z3.dll
+        echo   dist\lua%%V\z3.dll + libz3.dll
     )
 )
 echo.
