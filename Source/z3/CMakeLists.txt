@@ -21,9 +21,9 @@ target_include_directories(lua_z3
     $<INSTALL_INTERFACE:include>
 )
 
-# Set output name to just "z3" for Lua require("z3") to work
+# Set output name to "z3_native" — the z3.lua wrapper does require("z3_native")
 set_target_properties(lua_z3 PROPERTIES
-  OUTPUT_NAME "z3"
+  OUTPUT_NAME "z3_native"
   PREFIX ""
 )
 

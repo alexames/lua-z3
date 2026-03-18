@@ -146,7 +146,7 @@ extern "C" {
 #ifdef _WIN32
 __declspec(dllexport)
 #endif
-int luaopen_z3(lua_State* L) {
+int luaopen_z3_native(lua_State* L) {
   // Register all types first
   luaopen_z3_context(L);
   luaopen_z3_solver(L);
