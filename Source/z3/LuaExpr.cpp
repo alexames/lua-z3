@@ -380,7 +380,7 @@ static luaL_Reg exprMetatable[] = {
 };
 
 int luaopen_z3_expr(lua_State* L) {
-  luaW_register<z3::expr>(
+  LUAZ3_REGISTER_TYPE<z3::expr>(
       L,
       "z3.expr",
       exprTable,

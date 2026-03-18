@@ -182,7 +182,7 @@ static luaL_Reg contextMetatable[] = {
 };
 
 int luaopen_z3_context(lua_State* L) {
-  luaW_register<z3::context>(
+  LUAZ3_REGISTER_TYPE<z3::context>(
       L,
       "z3.context",
       contextTable,

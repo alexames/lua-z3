@@ -97,7 +97,7 @@ static luaL_Reg sortMetatable[] = {
 };
 
 int luaopen_z3_sort(lua_State* L) {
-  luaW_register<z3::sort>(
+  LUAZ3_REGISTER_TYPE<z3::sort>(
       L,
       "z3.sort",
       sortTable,

@@ -147,12 +147,15 @@ extern "C" {
 __declspec(dllexport)
 #endif
 int luaopen_z3_native(lua_State* L) {
-  // Register all types first
+  // Register all types (sets up metatables for luaW_push/luaW_check).
+  // Each call leaves a type table on the stack; pop them since the module
+  // table below is the only thing we return.
   luaopen_z3_context(L);
   luaopen_z3_solver(L);
   luaopen_z3_expr(L);
   luaopen_z3_sort(L);
   luaopen_z3_model(L);
+  lua_pop(L, 5);
 
   // Create the z3 module table
   lua_newtable(L);

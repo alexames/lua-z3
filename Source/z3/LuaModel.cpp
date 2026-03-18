@@ -131,7 +131,7 @@ static luaL_Reg modelMetatable[] = {
 };
 
 int luaopen_z3_model(lua_State* L) {
-  luaW_register<z3::model>(
+  LUAZ3_REGISTER_TYPE<z3::model>(
       L,
       "z3.model",
       modelTable,

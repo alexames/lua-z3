@@ -138,7 +138,7 @@ static luaL_Reg solverMetatable[] = {
 };
 
 int luaopen_z3_solver(lua_State* L) {
-  luaW_register<z3::solver>(
+  LUAZ3_REGISTER_TYPE<z3::solver>(
       L,
       "z3.solver",
       solverTable,
