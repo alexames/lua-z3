@@ -14,6 +14,10 @@ string(REPLACE "." "" LUA_VERSION_NODOT "${LUA_VERSION}")
 set(VCPKG_MANIFEST_NO_DEFAULT_FEATURES ON)
 set(VCPKG_MANIFEST_FEATURES "lua${LUA_VERSION_NODOT}" CACHE STRING "")
 
+# Use static libraries with dynamic CRT so Z3 is linked directly into the
+# Lua C module DLL, eliminating the libz3.dll runtime dependency.
+set(VCPKG_TARGET_TRIPLET "x64-windows-static-md" CACHE STRING "")
+
 include(vcpkg_bootstrap)
 
 project(lua-z3
