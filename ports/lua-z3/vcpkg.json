@@ -1,6 +1,6 @@
 {
   "name": "lua-z3",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "port-version": 0,
   "description": "Lua 5.4 bindings for the Z3 theorem prover",
   "homepage": "https://github.com/alexames/lua-z3",
