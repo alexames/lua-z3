@@ -21,7 +21,7 @@ set(VCPKG_TARGET_TRIPLET "x64-windows-static-md" CACHE STRING "")
 include(vcpkg_bootstrap)
 
 project(lua-z3
-  VERSION 0.1.0
+  VERSION 0.1.1
   DESCRIPTION "Lua bindings for the Z3 theorem prover"
   LANGUAGES CXX
 )
