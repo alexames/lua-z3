@@ -44,7 +44,10 @@ end
 -- absence marks a loadlib without "*".
 local link_symbol = package.searchpath and "*" or "Z3_get_full_version"
 
-if dirsep == "\\" then
+-- A host that withholds loadlib from its scripts, as a sandbox does, may also
+-- withhold io, which the search can need; its z3_native loads only if libz3
+-- is in the process already, so nothing is preloaded there.
+if dirsep == "\\" and package.loadlib then
   local native_path = search_path("z3_native", package.cpath)
   local dir = native_path and native_path:match("(.+)[/\\]")
   if dir then

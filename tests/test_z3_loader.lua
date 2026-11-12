@@ -3,8 +3,9 @@
 -- package.loadlib a spy that records what it was asked to load.
 -- Usage, from the repository root: lua tests/test_z3_loader.lua
 
--- The stubs replace fields of package that luacheck treats as read-only.
--- luacheck: ignore 122
+-- The stubs replace io and fields of package, which luacheck treats as
+-- read-only.
+-- luacheck: ignore 121 122
 
 local WINDOWS_CONFIG = "\\\n;\n?\n!\n-\n"
 local POSIX_CONFIG = "/\n;\n?\n!\n-\n"
@@ -14,6 +15,9 @@ local saved = {
   cpath = package.cpath,
   loadlib = package.loadlib,
   searchpath = package.searchpath,
+  preload = package.preload.z3_native,
+  loaded = package.loaded.z3_native,
+  io = io,
 }
 
 local native_stub = {}
@@ -24,20 +28,30 @@ local function restore()
   package.cpath = saved.cpath
   package.loadlib = saved.loadlib
   package.searchpath = saved.searchpath
-  package.preload.z3_native = nil
-  package.loaded.z3_native = nil
+  package.preload.z3_native = saved.preload
+  package.loaded.z3_native = saved.loaded
+  io = saved.io
 end
 
 -- Runs rock/z3.lua with the given package.config, package.cpath and
--- package.searchpath, and returns what it returned.
-local function load_wrapper(config, cpath, searchpath)
+-- package.searchpath, and returns what it returned. `sandboxed` withholds
+-- package.loadlib and makes any use of io raise, as a sandbox that removes
+-- both would.
+local function load_wrapper(config, cpath, searchpath, sandboxed)
   loads = {}
   package.config = config
   package.cpath = cpath
   package.searchpath = searchpath
-  package.loadlib = function(path, symbol)
-    loads[#loads + 1] = {path = path, symbol = symbol}
-    return nil, "spy", "open"
+  if sandboxed then
+    package.loadlib = nil
+    io = setmetatable({}, {__index = function(_, key)
+      error("io." .. tostring(key) .. " used in a sandbox", 2)
+    end})
+  else
+    package.loadlib = function(path, symbol)
+      loads[#loads + 1] = {path = path, symbol = symbol}
+      return nil, "spy", "open"
+    end
   end
   package.preload.z3_native = function() return native_stub end
   package.loaded.z3_native = nil
@@ -47,7 +61,13 @@ local function load_wrapper(config, cpath, searchpath)
   return result
 end
 
+-- A C runtime older than the UCRT answers a name in the root of the current
+-- drive, such as "\s1v0.", which is moved into the temporary directory.
 local temp_base = os.tmpname()
+if not temp_base:find("[/\\]", 2) then
+  local temp_root = os.getenv("TEMP") or os.getenv("TMPDIR") or "."
+  temp_base = temp_root .. "/" .. temp_base:gsub("^[/\\]", "")
+end
 local native_file = temp_base .. "_z3_native.dll"
 local temp_dir = native_file:match("(.+)[/\\]")
 local missing_dir = temp_base .. "_missing"
@@ -58,7 +78,11 @@ local function cleanup()
   os.remove(temp_base)
 end
 
-local file = assert(io.open(native_file, "w"))
+local file, open_error = io.open(native_file, "w")
+if not file then
+  cleanup()
+  error(open_error)
+end
 file:close()
 
 local tests = {}
@@ -85,6 +109,12 @@ end
 tests["without package.searchpath, a z3_native missing from cpath loads "
     .. "nothing"] = function()
   local result = load_wrapper(WINDOWS_CONFIG, missing_dir .. "/?.dll", nil)
+  assert(result == native_stub, "z3.lua must return z3_native's module")
+  assert(#loads == 0, "expected no loadlib call, got " .. #loads)
+end
+
+tests["without package.loadlib, searches and loads nothing"] = function()
+  local result = load_wrapper(WINDOWS_CONFIG, found_cpath, nil, true)
   assert(result == native_stub, "z3.lua must return z3_native's module")
   assert(#loads == 0, "expected no loadlib call, got " .. #loads)
 end
